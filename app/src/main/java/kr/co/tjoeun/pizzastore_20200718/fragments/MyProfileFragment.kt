@@ -1,5 +1,6 @@
 package kr.co.tjoeun.pizzastore_20200718.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,6 +32,23 @@ class MyProfileFragment : Fragment() {
             val myIntent = Intent(activity, EditNickNameActivity::class.java)
             startActivityForResult(myIntent, REQ_FOR_NICKNAME)
 
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQ_FOR_NICKNAME) {
+            if (resultCode == Activity.RESULT_OK) {
+
+//                data는 Intent이면서 null일 수도 있다. => ?로 null체크
+                val nickName = data?.getStringExtra("nickName")
+
+//                nickName은 String?라서 null일 수 있지만, 텍스트뷰가 알아서 처리한다.
+                nickNameTxt.text = nickName
+
+            }
         }
 
     }
